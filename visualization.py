@@ -23,9 +23,19 @@ def scatter(dataframe, x, y ):
     sns.scatterplot(data=dataframe, x=x, y=y)
 
 
-def boxplot(dataframe, figsize_rows, figsize_cols, x, y, title):
+def boxplot(dataframe, x):
     sns.set_style('darkgrid')
-    plt.figure(figsize=(figsize_rows, figsize_cols))
-    sns.boxplot(data=dataframe, x=x, y=y)
+    plt.figure(figsize=(6, 4))
+    sns.boxplot(data=dataframe, x=x)
     plt.xticks(rotation=90)
-    plt.title(title, fontdict={'fontsize': 18, 'verticalalignment': 'bottom'}, weight='bold')
+    plt.title(f'Boxplot - {x}', fontdict={'fontsize': 18, 'verticalalignment': 'bottom'}, weight='bold')
+
+
+def box_y_hist_plot(dataframe, col):
+    fig, ax = plt.subplots(2, 1, figsize=(6, 4))
+
+    ax[0].set_title(f"Distribucion de {col}")
+    sns.histplot(data=dataframe, x=f"{col}", kde=True, ax=ax[0])
+
+    ax[1].set_title(f"Boxplot de{col}")
+    sns.boxplot(data=dataframe, x=f"{col}", ax=ax[1])
