@@ -39,3 +39,22 @@ def box_y_hist_plot(dataframe, col):
 
     ax[1].set_title(f"Boxplot de{col}")
     sns.boxplot(data=dataframe, x=f"{col}", ax=ax[1])
+
+
+def plot_roc_curve(y_test, y_pred):
+    from sklearn.metrics import roc_auc_score
+    from sklearn.metrics import roc_curve
+
+    logit_roc_auc = roc_auc_score(y_test, y_pred)
+    fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+
+    plt.figure()
+    plt.plot(fpr, tpr, label='Logistic Regression (area=%0.2f)' % logit_roc_auc)
+    plt.plot([0, 1], [0, 1], 'r--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curve')
+    plt.legend(loc='lower right')
+    plt.show()
